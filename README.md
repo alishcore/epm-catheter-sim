@@ -65,6 +65,28 @@ The largest sampled gap occurs at intermediate rigidity. In this model, a very f
 
 The command saves a PNG and CSV in `output/`. Run `python stiffness_sweep.py --help` to change the field, rigidity range, or residual OFF moment.
 
+## Residual OFF moment sweep
+
+```bash
+python residual_sweep.py
+```
+
+This experiment varies the OFF dipole moment from 0% to 100% of the ON moment in 1 percentage point steps. Both states use the same external field (40 mT at 90°) and the same tip length and rigidity (30 mm and 10⁻⁶ N m²). As the OFF moment changes, the ON angle stays at 62.82° and the ON lateral position stays at 14.86 mm.
+
+![Tip angle and lateral tip position as the residual OFF dipole moment increases](residual_sweep.png)
+
+| OFF moment (% of ON) | OFF angle | Absolute angle gap | OFF lateral position |
+| ---: | ---: | ---: | ---: |
+| 0% | 0.00° | 62.82° | 0.00 mm |
+| 5% | 6.83° | 55.99° | 1.79 mm |
+| 10% | 13.38° | 49.44° | 3.49 mm |
+| 25% | 29.82° | 32.99° | 7.63 mm |
+| 100% | 62.82° | 0.00° | 14.86 mm |
+
+In this example, a 10% residual magnetic moment gives about 21% of the ON angle and 23% of the ON lateral displacement. The static model evaluates the equilibrium response at each assumed moment. Switching repeatability can be assessed experimentally by measuring deflection across repeated cycles.
+
+The [plot](residual_sweep.png) and [CSV](residual_sweep.csv) contain the default run. The command writes both files to `output/` and accepts `--help` for the field, rigidity, dipole moment, and output options.
+
 ## References
 
 - Chautems et al., [Magnetic Continuum Device with Variable Stiffness for Minimally Invasive Surgery](https://doi.org/10.1002/aisy.201900086), Section 2.3.2. Source for the constant-curvature torque balance.
