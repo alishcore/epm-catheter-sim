@@ -34,7 +34,7 @@ The solver brackets the signed tip angle $\theta$ between the base tangent and t
 
 Each EPM state is represented by a fixed effective dipole moment $m$. The switching pulse, magnetic hysteresis, field gradients, wall contact, and transient motion are outside the model. All parameter values are illustrative. The example uses a 30 mm segment, $EI=10^{-6}\,\mathrm{N\,m^2}$, an ON moment of $2\times10^{-3}\,\mathrm{A\,m^2}$, and a residual OFF moment of 10% of ON. No hardware measurements are used.
 
-## Default result
+## Field sweep result
 
 The field points 90° from the base and increases from 0 to 40 mT.
 
@@ -44,6 +44,26 @@ The field points 90° from the base and increases from 0 to 40 mT.
 | OFF | 13.38° | 3.49 mm |
 
 The angle describes the tip tangent. Lateral deflection is the tip's distance from the undeformed axis in this plane.
+
+## Stiffness sweep
+
+```bash
+python stiffness_sweep.py
+```
+
+The [plot](stiffness_sweep.png) and [CSV](stiffness_sweep.csv) show 401 logarithmically spaced values of flexural rigidity $EI$ from $10^{-8}$ to $10^{-4}$ N m². The field stays at 40 mT and 90° to the base. Segment length and dipole moments use the default values above. The comparison metric is the absolute difference between the ON and OFF tip angles at each sampled rigidity.
+
+![ON and OFF tip angles and their absolute difference versus flexural rigidity](stiffness_sweep.png)
+
+| $EI$ (N m²) | ON angle | OFF angle | Absolute gap |
+| ---: | ---: | ---: | ---: |
+| $1.00 \times 10^{-8}$ | 89.63° | 86.40° | 3.23° |
+| $7.08 \times 10^{-7}$ | 69.15° | 18.43° | 50.72° |
+| $1.00 \times 10^{-4}$ | 1.37° | 0.14° | 1.24° |
+
+The largest sampled gap occurs at intermediate rigidity. In this model, a very flexible tip approaches the field direction in both states because the OFF state retains a dipole moment. A very stiff tip has little deflection in either state. The peak depends on the assumed parameters and is a simulation result under the conditions above.
+
+The command saves a PNG and CSV in `output/`. Run `python stiffness_sweep.py --help` to change the field, rigidity range, or residual OFF moment.
 
 ## References
 
